@@ -1,1 +1,1 @@
-brew install naabu dog gtop htop bottom gau fzf mdless
+brew install naabu dog gtop htop bottom gau fzf mdless hakrawler
