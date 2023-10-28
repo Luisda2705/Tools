@@ -1,4 +1,5 @@
 Linux
+------------
 echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ED444FF07D8D0BF6
 apt-get -y update && apt-get -y -f upgrade && apt-get -y full-upgrade && apt-get -y -f  install kali-linux-everything
@@ -227,3 +228,89 @@ snmpget -v 1 -c public $URL .1.3.6.1.4.1.11.2.3.9.1.1.13.0
 SMTP
 nmap $URL -p 25 --script banner,smtp-commands
 hydra -P /usr/share/wordlists $URL smtp -V
+
+HTTP
+nmap $URL -p 80 -sV --script vuln -v 
+nmap -sV --script=http-sql-injection $URL –p 80
+
+NCat
+ncat -nv --source-port 53 10.129.2.28 50000
+
+Miscellaneous
+${7*7}
+/\..\..\..\..\..\..\..\..\..\etc\passwd
+gzip -d filename
+Certificates - https://crt.sh
+echo 'include "/opt/homebrew/share/nanorc/*.nanorc"' >> ~/.nanorc
+
+TCPDump
+tcpdump -D
+tcpdump -i eth0 host 172.16.146.2
+tcpdump -i eth0 tcp src port 80
+
+HTTPie
+http localhost: Host:example.com
+http OPTIONS $URL
+http GET $URL
+http POST $URL
+
+Photon
+Photon -u $URL -l 3 -t 100
+
+SCP
+scp /root/flag.zip root@143.198.146.147:/root/Desktop
+
+Docker
+docker container create -dit --name kali kalilinux/kali-rolling
+docker cp sqlfile kali:/
+docker cp kali:/shell.php /Users/luis/Desktop
+docker cp /Users/luis/Desktop/request.txt kali:/usr/share/wordlists
+docker run -dit --name kali kalilinux/kali-rolling
+docker start kali && docker exec -it kali /bin/bash
+
+cURL
+curl -x proxy.domain.com:8080 -U user:password https://reqbin.com
+curl -b "name1=value1; name2=value2" https://reqbin.com
+curl -d '{"id": 123456}' -H "Content-Type: application/json" https://reqbin.com/echo/post/json
+curl -X PUT -d '{"id": 1}' https://reqbin.com/echo/post/json
+curl -F logo=@filename [URL]
+curl -i -X OPTIONS http://SERVER_IP:PORT/
+
+Misc
+cat access.log | grep "192.168.10.5"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo 'include "/opt/homebrew/share/nanorc/*.nanorc"' >> ~/.nanorc
+
+TCPDump
+tcpdump -i eth0 -w filename.pcapng
+
+Kali
+echo "deb http://http.kali.org/kali kali-rolling main contrib non-free non-free-firmware" | sudo tee /etc/apt/sources.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys ED444FF07D8D0BF6
+
+Nanorc
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
+mv $HOME/.nano/* /usr/share/nano/
+
+MITM Proxy
+sudo mitmproxy
+networksetup -setwebproxystate "Wi-fi" on && networksetup -setsecurewebproxystate "Wi-fi" on
+networksetup -setwebproxystate "Wi-fi" off && networksetup -setsecurewebproxystate "Wi-fi" off
+security add-trusted-cert -d -p ssl -p basic -k /Library/Keychains/System.keychain ~/.mitmproxy/mitmproxy-ca-cert.pem
+mitmproxy --set tls_version_client_min=SSL3
+
+Homebrew
+useradd -m linux
+passwd linux
+usermod -aG sudo linux
+cp $HOME/.bashrc  /home/linux/.bashrc
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> /home/linux/.profile
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+sudo apt-get install build-essential
+
+Brew
+sudo chown -R $(whoami) $(brew --prefix)/*
+
+SCP
+scp /path/to/file username@a
