@@ -314,3 +314,6 @@ sudo chown -R $(whoami) $(brew --prefix)/*
 
 SCP
 scp /path/to/file username@a
+
+FFUF
+ffuf -u $URL -w ips.txt -H 'Host: FUZZ' -fs 752
