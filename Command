@@ -317,3 +317,13 @@ scp /path/to/file username@a
 
 FFUF
 ffuf -u $URL -w ips.txt -H 'Host: FUZZ' -fs 752
+
+
+
+IP Generator
+
+for a in {1..255};do
+    for b in {1..255};do
+        echo "192.168.$a.$b" >> ips.txt
+    done
+done
