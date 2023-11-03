@@ -327,3 +327,7 @@ for a in {1..255};do
         echo "192.168.$a.$b" >> ips.txt
     done
 done
+
+
+CIDR
+echo 192.168.1.0/24 | httpx -silent
