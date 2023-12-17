@@ -4,3 +4,4 @@ apt-get install build-essential
 
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 mv $HOME/.nano/* /usr/share/nano/
+rm  $HOME/.nano/
