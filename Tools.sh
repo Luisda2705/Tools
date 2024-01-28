@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 apt-get install -y net-tools exa tree ripgrep fd-find neofetch git npm nmap ffuf glances duf nano bat gh procs
 apt-get install build-essential
