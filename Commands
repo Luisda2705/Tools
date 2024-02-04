@@ -261,12 +261,13 @@ SCP
 scp /root/flag.zip root@143.198.146.147:/root/Desktop
 
 Docker
-docker container create -dit --name kali kalilinux/kali-rolling
+docker start kali && docker exec -it kali /bin/bash
+docker container create -it --name kali kalilinux/kali-rolling
+docker run -it --name kali kalilinux/kali-rolling
 docker cp sqlfile kali:/
 docker cp kali:/shell.php /Users/luis/Desktop
 docker cp /Users/luis/Desktop/request.txt kali:/usr/share/wordlists
-docker run -it --name kali kalilinux/kali-rolling
-docker start kali && docker exec -it kali /bin/bash
+
 
 cURL
 curl -x proxy.domain.com:8080 -U user:password https://reqbin.com
@@ -321,7 +322,6 @@ ffuf -u $URL -w ips.txt -H 'Host: FUZZ' -fs 752
 
 
 IP Generator
-
 for a in {1..255};do
     for b in {1..255};do
         echo "192.168.$a.$b" >> ips.txt
