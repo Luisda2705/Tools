@@ -265,7 +265,7 @@ docker container create -dit --name kali kalilinux/kali-rolling
 docker cp sqlfile kali:/
 docker cp kali:/shell.php /Users/luis/Desktop
 docker cp /Users/luis/Desktop/request.txt kali:/usr/share/wordlists
-docker run -dit --name kali kalilinux/kali-rolling
+docker run -it --name kali kalilinux/kali-rolling
 docker start kali && docker exec -it kali /bin/bash
 
 cURL
