@@ -9,7 +9,7 @@ cd $HOME
 cd Setup/
 /bin/bash Setup.sh
 
-curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
+curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 mv $HOME/.nano/* /usr/share/nano/
 rm -rf $HOME/.nano/
