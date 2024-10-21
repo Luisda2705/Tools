@@ -10,7 +10,8 @@ sh Setup.sh
 cp $HOME/Tools/nanorc /etc/nanorc
 
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
+
 mv $HOME/.nano/* /usr/share/nano/
-rm -rf $HOME/.nano/
+rm $HOME/.nano/ && rm .nanorc
 
 clear
