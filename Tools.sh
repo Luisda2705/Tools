@@ -5,10 +5,12 @@ apt-get install -y $APPS
 apt-get install -y build-essential
 
 cd $HOME/Setup/
-/bin/bash Setup.sh
+sh Setup.sh
 
 cp $HOME/Tools/nanorc /etc/nanorc
 
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 mv $HOME/.nano/* /usr/share/nano/
 rm -rf $HOME/.nano/
+
+clear
