@@ -1,2 +1,1 @@
-
-brew install naabu dog gtop htop bottom gau fzf mdless hakrawler whatweb glances bat eza
+brew install naabu gtop htop bottom gau fzf mdless hakrawler whatweb glances bat eza
