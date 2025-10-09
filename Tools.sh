@@ -6,11 +6,12 @@ apt-get install -y build-essential
 cd $HOME/Setup/
 sh Setup.sh
 
+# Install NanoRC
 cp $HOME/Tools/nanorc /etc/nanorc
-
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
-#mv $HOME/.nano/* /opt/homebrew/Cellar/nano/*/share/nano/
+# MacOS Folder
+# mv $HOME/.nano/* /opt/homebrew/Cellar/nano/*/share/nano/
 
 mv $HOME/.nano/* /usr/share/nano/
 rm $HOME/.nano/
