@@ -12,6 +12,7 @@ cp $HOME/Tools/nanorc /etc/nanorc
 cd $HOME
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 
+
 # MacOS Folder
 # mv $HOME/.nano/* /opt/homebrew/Cellar/nano/*/share/nano/
 
