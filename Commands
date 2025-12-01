@@ -4,6 +4,11 @@ echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" | sudo t
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ED444FF07D8D0BF6
 apt-get -y update && apt-get -y -f upgrade && apt-get -y full-upgrade && apt-get -y -f  install kali-linux-everything
 
+Docker
+-------------------------------------------------------------
+docker run -it ubuntu:latest /bin/bash
+
+
 Port Scanner
 -------------------------------------------------------------
 nmap -A $URL -v
