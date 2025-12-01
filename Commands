@@ -5,7 +5,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ED444FF07D8D0BF6
 apt-get -y update && apt-get -y -f upgrade && apt-get -y full-upgrade && apt-get -y -f  install kali-linux-everything
 
 Port Scanner
-------------------------------------------------------------
+-------------------------------------------------------------
 nmap -A $URL -v
 nmap -F $URL -v
 nmap -F -iL scan --open
@@ -16,7 +16,7 @@ masscan -p80 $CIDR
 rustscan -a $URL
 
 Subdomains
-------------------------------------------------------------
+-------------------------------------------------------------
 nmap --script dns-brute --script-args dns-brute.domain=$URL,dns-brute.threads=6 -v -oN scan
 subfinder -d $URL -v
 subfinder -silent -d $URL | dnsx -silent

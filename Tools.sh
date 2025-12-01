@@ -1,8 +1,8 @@
+
 APPS="net-tools eza tree ripgrep fd-find neofetch git npm nmap ffuf glances duf nano bat gh fzf curl unzip wget httpx cmatrix"
 
 apt-get install -y $APPS
 apt-get install -y build-essential
-
 
 cd $HOME/Setup/
 sh Setup.sh
